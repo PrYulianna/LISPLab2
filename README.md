@@ -28,12 +28,12 @@
  2. Написати предикат list-set-intersect-p , який визначає чи перетинаються дві
  множини, задані списками атомів, чи ні
  ## Лістинг функції merge-lists-spinning-pairs>
- ```
+ ```lisp
 (defun merge-lists-spinning-pairs (list1 list2)
   (merge-lists-spinning-pairs-helper list1 list2 0))
 ```
  ### Тестові набори та утиліти
- ```
+ ```lisp
 (defun merge-lists-spinning-pairs-helper (list1 list2 counter)
   (cond
     ((and (null list1) (null list2)) nil)
@@ -59,7 +59,7 @@
     (check-first-function "[Test 3]" nil nil nil))
  ```
  ### Тестування
-```
+```lisp
 CL-USER> (test-first-function)
 PASSED [Test 1]
 PASSED [Test 2]
