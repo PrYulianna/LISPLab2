@@ -31,7 +31,9 @@
  ```
 (defun merge-lists-spinning-pairs (list1 list2)
   (merge-lists-spinning-pairs-helper list1 list2 0))
-
+```
+ ### Тестові набори та утиліти
+ ```
 (defun merge-lists-spinning-pairs-helper (list1 list2 counter)
   (cond
     ((and (null list1) (null list2)) nil)
@@ -47,34 +49,52 @@
     (t
      (cons (list (car list2) (car list1))
            (merge-lists-spinning-pairs-helper (cdr list1) (cdr list2) (+ counter 1))))))
-```
- ### Тестові набори та утиліти
- ```
 (defun check-first-function (name input1 input2 expected)
     (format t "~:[FAILED~;PASSED~] ~a~%"
         (equal (merge-lists-spinning-pairs input1 input2) expected)
         name))
-
 (defun test-first-function ()
     (check-first-function "[Test 1]" '(1 2 3 4 5) '(a b c d) '((1 a) (b 2) (3 c) (d 4) (5)))  
     (check-first-function "[Test 2]" '(1 2 3) '(a b c) '((1 a) (b 2) (3 c))) 
     (check-first-function "[Test 3]" nil nil nil))
  ```
-
  ### Тестування
-```lisp
- <Виклик і результат виконання тестів першої функції>
+```
+CL-USER> (test-first-function)
+PASSED [Test 1]
+PASSED [Test 2]
+PASSED [Test 3]
+NIL
  ```
  ## Лістинг функції <list-set-intersect-p>
  ```lisp
- <Лістинг реалізації другої функції>
+ (defun list-set-intersect-p (set1 set2)
+  (cond
+    ((null set1) nil)
+    ((member-p (car set1) set2) t)
+    (t (list-set-intersect-p (cdr set1) set2))))
  ```
  ### Тестові набори та утиліти
  ```lisp
- <Лістинг реалізації утилітних тестових функцій та тестових наборів другої
- функції>
+ (defun member-p (element list)
+  (cond
+    ((null list) nil)
+    ((equal element (car list)) t)
+    (t (member-p element (cdr list)))))
+(defun check-second-function (name set1 set2 expected)
+    (format t "~:[FAILED~;PASSED~] ~a~%"
+        (equal (list-set-intersect-p set1 set2) expected)
+        name))
+(defun test-second-function ()
+    (check-second-function "[Test 1]" '(1 2 3) '(4 5 6) nil)  
+    (check-second-function "[Test 2]" '(1 2 3) '(3 4 5) t) 
+    (check-second-function "[Test 3]" nil nil nil))
  ```
  ### Тестування
  ```lisp
- <Виклик і результат виконання тестів другої функції>
+ CL-USER> (test-second-function)
+PASSED [Test 1]
+PASSED [Test 2]
+PASSED [Test 3]
+NIL
  ```
