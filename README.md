@@ -27,18 +27,45 @@
  двох списків, почергово змінюючи їх взаємне розташування в групі:
  2. Написати предикат list-set-intersect-p , який визначає чи перетинаються дві
  множини, задані списками атомів, чи ні
- ## Лістинг функції <назва першої функції>
- ```lisp
- <Лістинг реалізації першої функції>
+ ## Лістинг функції merge-lists-spinning-pairs>
  ```
+(defun merge-lists-spinning-pairs (list1 list2)
+  (merge-lists-spinning-pairs-helper list1 list2 0))
+
+(defun merge-lists-spinning-pairs-helper (list1 list2 counter)
+  (cond
+    ((and (null list1) (null list2)) nil)
+    ((null list1)
+     (cons (list (car list2))
+           (merge-lists-spinning-pairs-helper nil (cdr list2) (+ counter 1))))
+    ((null list2)
+     (cons (list (car list1))
+           (merge-lists-spinning-pairs-helper (cdr list1) nil (+ counter 1))))
+    ((evenp counter)
+     (cons (list (car list1) (car list2))
+           (merge-lists-spinning-pairs-helper (cdr list1) (cdr list2) (+ counter 1))))
+    (t
+     (cons (list (car list2) (car list1))
+           (merge-lists-spinning-pairs-helper (cdr list1) (cdr list2) (+ counter 1))))))
+```
  ### Тестові набори та утиліти
- ```lisp```
+ ```
+(defun check-first-function (name input1 input2 expected)
+    (format t "~:[FAILED~;PASSED~] ~a~%"
+        (equal (merge-lists-spinning-pairs input1 input2) expected)
+        name))
+
+(defun test-first-function ()
+    (check-first-function "[Test 1]" '(1 2 3 4 5) '(a b c d) '((1 a) (b 2) (3 c) (d 4) (5)))  
+    (check-first-function "[Test 2]" '(1 2 3) '(a b c) '((1 a) (b 2) (3 c))) 
+    (check-first-function "[Test 3]" nil nil nil))
+ ```
 
  ### Тестування
 ```lisp
  <Виклик і результат виконання тестів першої функції>
  ```
- ## Лістинг функції <назва другої функції>
+ ## Лістинг функції <list-set-intersect-p>
  ```lisp
  <Лістинг реалізації другої функції>
  ```
