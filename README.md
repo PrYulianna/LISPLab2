@@ -49,10 +49,12 @@
     (t
      (cons (list (car list2) (car list1))
            (merge-lists-spinning-pairs-helper (cdr list1) (cdr list2) (+ counter 1))))))
+
 (defun check-first-function (name input1 input2 expected)
     (format t "~:[FAILED~;PASSED~] ~a~%"
         (equal (merge-lists-spinning-pairs input1 input2) expected)
         name))
+
 (defun test-first-function ()
     (check-first-function "[Test 1]" '(1 2 3 4 5) '(a b c d) '((1 a) (b 2) (3 c) (d 4) (5)))  
     (check-first-function "[Test 2]" '(1 2 3) '(a b c) '((1 a) (b 2) (3 c))) 
@@ -81,10 +83,12 @@ NIL
     ((null list) nil)
     ((equal element (car list)) t)
     (t (member-p element (cdr list)))))
+
 (defun check-second-function (name set1 set2 expected)
     (format t "~:[FAILED~;PASSED~] ~a~%"
         (equal (list-set-intersect-p set1 set2) expected)
         name))
+
 (defun test-second-function ()
     (check-second-function "[Test 1]" '(1 2 3) '(4 5 6) nil)  
     (check-second-function "[Test 2]" '(1 2 3) '(3 4 5) t) 
